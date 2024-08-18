@@ -12,7 +12,7 @@ const persistedReducer = persistReducer(persistConfig, contactReducer);
 
 export const store = configureStore({
   reducer: {
-    contacts: persistedReducer, // Asigură-te că este sub cheia 'contacts'
+    contacts: persistedReducer,
   },
 });
 
