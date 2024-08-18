@@ -18,11 +18,12 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
         value={name}
         onChange={e => setName(e.target.value)}
+        className={styles.input}
         placeholder="Name"
         required
       />
@@ -30,6 +31,7 @@ const ContactForm = () => {
         type="text"
         value={phone}
         onChange={e => setPhone(e.target.value)}
+        className={styles.input}
         placeholder="Phone"
         required
       />

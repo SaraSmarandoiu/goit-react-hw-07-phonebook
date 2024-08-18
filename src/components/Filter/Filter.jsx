@@ -7,6 +7,7 @@ const Filter = ({ value, onChange }) => {
       type="text"
       value={value}
       onChange={onChange}
+      className={styles.input}
       placeholder="Filter contacts"
     />
   );

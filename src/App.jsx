@@ -28,9 +28,10 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Contact Book</h1>
+    <div className={styles.container}>
+      <h1>Phonebook</h1>
       <ContactForm />
+      <h2>Contacts</h2>
       <Filter value={filter} onChange={handleFilterChange} />
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
