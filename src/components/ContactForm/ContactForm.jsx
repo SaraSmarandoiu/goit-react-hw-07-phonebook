@@ -5,43 +5,35 @@ import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    dispatch(addContact({ name, number }));
-    setName('');
-    setNumber('');
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (name && phone) {
+      dispatch(addContact({ name, phone }));
+      setName('');
+      setPhone('');
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label className={styles.label}>
-        Name
-        <input
-          type="text"
-          name="name"
-          required
-          value={name}
-          onChange={e => setName(e.target.value)}
-          className={styles.input}
-        />
-      </label>
-      <label className={styles.label}>
-        Number
-        <input
-          type="tel"
-          name="number"
-          required
-          value={number}
-          onChange={e => setNumber(e.target.value)}
-          className={styles.input}
-        />
-      </label>
-      <button type="submit" className={styles.button}>
-        Add contact
-      </button>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Name"
+        required
+      />
+      <input
+        type="text"
+        value={phone}
+        onChange={e => setPhone(e.target.value)}
+        placeholder="Phone"
+        required
+      />
+      <button type="submit">Add Contact</button>
     </form>
   );
 };

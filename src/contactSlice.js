@@ -1,27 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = {
-  items: [],
-  isLoading: false,
-  error: null,
-  filter: '',
-};
+const API_URL = 'https://66c1d66ef83fffcb587a57fe.mockapi.io/contacts';
 
 export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
-  const response = await axios.get(
-    'https://66c1d66ef83fffcb587a57fe.mockapi.io/contacts'
-  );
+  const response = await axios.get(API_URL);
   return response.data;
 });
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async contact => {
-    const response = await axios.post(
-      'https://66c1d66ef83fffcb587a57fe.mockapi.io/contacts',
-      contact
-    );
+  async newContact => {
+    const response = await axios.post(API_URL, newContact);
     return response.data;
   }
 );
@@ -29,16 +19,18 @@ export const addContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async id => {
-    await axios.delete(
-      `https://66c1d66ef83fffcb587a57fe.mockapi.io/contacts/${id}`
-    );
+    await axios.delete(`${API_URL}/${id}`);
     return id;
   }
 );
 
 const contactSlice = createSlice({
   name: 'contacts',
-  initialState: initialState,
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   reducers: {
     setFilter(state, action) {
       state.filter = action.payload;
@@ -48,7 +40,6 @@ const contactSlice = createSlice({
     builder
       .addCase(fetchContacts.pending, state => {
         state.isLoading = true;
-        state.error = null;
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
